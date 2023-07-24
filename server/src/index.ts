@@ -1,9 +1,16 @@
-import express from "express";
+import express, {Request, Response} from "express";
+import mongoose from "mongoose";
 
 const app = express();
 
-app.get('/',(req,res) => {
+//mongodb+srv://hari:hari@authentification-demo.7swcq.mongodb.net/?retryWrites=true&w=majority
+const db = mongoose.connect("mongodb+srv://hari:hari@authentification-demo.7swcq.mongodb.net/?retryWrites=true&w=majority");
+
+
+
+app.get('/',(req:Request ,res:Response) => {
+
     res.send("hello world");
 })
 
-app.listen(5000);
+app.listen(5001);
