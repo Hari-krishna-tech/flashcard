@@ -1,6 +1,7 @@
 import express, {Request, Response} from "express";
 import mongoose from "mongoose";
-
+import {config} from "dotenv";
+config();
 
 import Deck from "./models/Deck";
 
@@ -23,7 +24,7 @@ app.post("/decks", async (req: Request, res: Response) => {
     const createdDeck = await deck.save();
     res.json(createdDeck);
     });
-mongoose.connect("mongodb+srv://hari:hari1234@authentification-demo.7swcq.mongodb.net/?retryWrites=true&w=majority")
+mongoose.connect(process.env.MONGO_URL || "")
 .then(() => {
     console.log("connected to DB and listening on port " + PORT);
 app.listen(PORT);
