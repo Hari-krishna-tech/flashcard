@@ -8,10 +8,12 @@ import {
 } from "react-router-dom"
 import Deck from './Deck.tsx'
 import './index.css'
+import Header from './Header.tsx'
 
 const BrowserRouter = createBrowserRouter([{
   path: "/",
   element: <App />,
+  
 }, 
 {
   path: "/decks/:deckId",
@@ -20,6 +22,7 @@ const BrowserRouter = createBrowserRouter([{
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={BrowserRouter}/ >
+    <Header></Header>
+    <RouterProvider router={BrowserRouter} / >
   </React.StrictMode>
 );

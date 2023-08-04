@@ -4,11 +4,9 @@ import {Link} from "react-router-dom"
 import { deleteDeck } from './api/deleteDeck';
 import { getDecks } from './api/getDecks';
 import { createDeck } from './api/createDeck';
+import {TDeck} from "./api/getDecks"
 
-type TDeck = {
-  title: string,
-  _id: string
-}
+
 
 function App() {
   const [title, setTitle] = useState<string>('')
