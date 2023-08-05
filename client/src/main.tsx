@@ -9,12 +9,17 @@ import {
 import Deck from './Deck.tsx'
 import './index.css'
 import Header from './Header.tsx'
+import Login from './Login.tsx'
 
 const BrowserRouter = createBrowserRouter([{
   path: "/",
   element: <App />,
   
-}, 
+},
+ {
+  path: "login",
+  element: <Login />
+ },
 {
   path: "/decks/:deckId",
   element: <Deck />

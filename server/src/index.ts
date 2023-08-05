@@ -26,11 +26,11 @@ app.post("/auth/login", getUserController);
 
 
 app.get("/decks", authMiddleware,getDeckController);
-app.post("/decks", createDeckController);
-app.delete("/decks/:deckId", deleteDeckController);
-app.get("/decks/:deckId", getOneDeckController);
-app.post("/decks/:deckId/cards", createCardForDeckController);
-app.delete("/decks/:deckId/cards/:index", deleteCardOnDeckController);
+app.post("/decks", authMiddleware ,createDeckController);
+app.delete("/decks/:deckId", authMiddleware ,deleteDeckController);
+app.get("/decks/:deckId", authMiddleware ,getOneDeckController);
+app.post("/decks/:deckId/cards", authMiddleware ,createCardForDeckController);
+app.delete("/decks/:deckId/cards/:index", authMiddleware ,deleteCardOnDeckController);
 
 
 

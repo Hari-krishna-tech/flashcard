@@ -5,12 +5,15 @@ import { deleteDeck } from './api/deleteDeck';
 import { getDecks } from './api/getDecks';
 import { createDeck } from './api/createDeck';
 import {TDeck} from "./api/getDecks"
-
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 
 function App() {
   const [title, setTitle] = useState<string>('')
   const [decks, setDecks] = useState<TDeck[]>([])
+  const [token, setToken] = useState<string>('')
+  const navigate = useNavigate();
 
   const handleSubmit =async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -24,19 +27,27 @@ function App() {
     setDecks(decks.filter(deck => deck._id !== id))
   }
   useEffect(() => {
+    
+
     async function getDeck() {
-      const decks = await getDecks();
+
+      const cookie = await Cookies.get('token');
+      if(cookie === undefined) {
+      navigate('/login');
+      }
+      setToken( cookie|| '');
+      const decks = await getDecks(token);
       setDecks(decks);
     }
 
     getDeck();
-  }, []);
+  }, [token]);
 
   return (
     <>
       <div className="App">
         <ul className="decks">
-          {decks.map((deck, i) => {
+          {decks && decks.map((deck, i) => {
             return (
               <li key={deck._id} className="deck">
                 <button className="delete" onClick={()=> handleDeleteDeck(deck._id)}>X</button>

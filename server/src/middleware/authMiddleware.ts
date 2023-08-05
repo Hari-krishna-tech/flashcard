@@ -17,6 +17,7 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction) =
 
         const email= decoded.email;
         req.email = email;
+        console.log(req.email);
         next();
     }catch(err) {
         res.status(401).json({message: "unauthorized"});

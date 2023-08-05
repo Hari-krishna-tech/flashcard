@@ -13,6 +13,7 @@ export  async function getDeckController(req: Request, res: Response) {
                 return;
             }
             const decks = user.decks;
+            console.log(decks);
             res.json(decks);
         }
     } catch(err) {

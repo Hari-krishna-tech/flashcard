@@ -10,14 +10,17 @@ export async function getUserController(req: Request, res: Response) {
     const {email, password} = req.body;
     try {
         const user = await User.findOne({email});
-        if(!user || await bcrypt.compare(password, user.password)) {
+        console.log(user);
+
+        if(!user || !await bcrypt.compare(password, user.password)) {
             res.status(400).json({message: "user does not exist"});
             return;
         }
 
         const token = jwt.sign({email: user.email}, process.env.JWT_SECRET || "" , {expiresIn: "7days"});
         user.tokens.push(token);
-        res.json({token, user});
+        await user.save();
+        res.json({token});
     } catch (err) {
         res.status(500).json({message: "internal server error"});
     }

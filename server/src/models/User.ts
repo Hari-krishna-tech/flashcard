@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 // import { IDeck } from "./Deck";
 
 const Schema = mongoose.Schema;
-interface IDeck extends mongoose.Document {
+export interface IDeck extends mongoose.Document {
   title: string;
   cards: [string];
 }

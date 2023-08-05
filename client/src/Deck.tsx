@@ -4,11 +4,15 @@ import { getDeck } from './api/getDeck';
 import { useParams } from 'react-router-dom';
 import { createCard } from './api/createCard';
 import {TDeck} from "./api/getDecks"
-import {deleteCard} from "./api/deleteCard"
+import {deleteCard} from "./api/deleteCard";
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 export default function Deck() {
  const [deck, setDeck] = useState<TDeck | undefined>()
  const [text, setText] = useState<string>('')
+ const [token, setToken] = useState<string>('')
+ const navigate = useNavigate();
  let {deckId} = useParams<{deckId:string}>()
   const handleSubmit =async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -24,7 +28,13 @@ export default function Deck() {
   }
   useEffect(() => {
     async function fetchDeck() {
-      const deck = await getDeck(deckId!);
+      const cookie = await Cookies.get('token');
+      if(cookie === undefined) {
+        navigate('/login');
+      }
+      setToken( cookie|| '');
+
+      const deck = await getDeck(deckId!, cookie!);
       setDeck(deck);
     }
 
