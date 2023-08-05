@@ -4,13 +4,15 @@ import cors from "cors";
 import {config} from "dotenv";
 config();
 
-import Deck from "./models/Deck";
+import authMiddleware from "./middleware/authMiddleware";
 import { createDeckController } from "./routes/controllers/createDeckController";
 import { getDeckController } from "./routes/controllers/getDeckController";
 import { deleteDeckController } from "./routes/controllers/deleteDeckController";
 import { createCardForDeckController } from "./routes/controllers/createCardForDeckController";
 import { getOneDeckController } from "./routes/controllers/getOneDeckController";
 import { deleteCardOnDeckController } from "./routes/controllers/deleteCardOnDeckController";
+import { createUserController } from "./routes/controllers/createUserController";
+import { getUserController } from "./routes/controllers/getUserController";
 
 const app = express();
 const PORT = 5001;
@@ -18,8 +20,12 @@ const PORT = 5001;
 app.use(express.json());
 app.use(cors());
 
+// auth routes 
+app.post("/auth/signup",createUserController);
+app.post("/auth/login", getUserController);
 
-app.get("/decks", getDeckController);
+
+app.get("/decks", authMiddleware,getDeckController);
 app.post("/decks", createDeckController);
 app.delete("/decks/:deckId", deleteDeckController);
 app.get("/decks/:deckId", getOneDeckController);
