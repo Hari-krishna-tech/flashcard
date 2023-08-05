@@ -18,12 +18,13 @@ function App() {
   const handleSubmit =async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     
-    const newDeck = await createDeck(title);
-    setDecks([...decks, newDeck])
+    const newDeck = await createDeck(title, token);
+    console.log(newDeck)
+    setDecks(newDeck)
     setTitle('')
   }
   const handleDeleteDeck = (id:string) => {
-    deleteDeck(id);
+    deleteDeck(id, token);
     setDecks(decks.filter(deck => deck._id !== id))
   }
   useEffect(() => {

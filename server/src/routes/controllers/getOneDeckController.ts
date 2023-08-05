@@ -21,8 +21,9 @@ export  async function getOneDeckController(req: Request, res: Response) {
             res.status(400).json({message: "deck does not exist"});
             return;
         }
+        console.log(deck);
         res.json(deck);
-        
+
     } catch(err) {
         res.status(500).json({message: "internal server error"});
     }

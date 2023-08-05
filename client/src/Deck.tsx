@@ -17,12 +17,12 @@ export default function Deck() {
   const handleSubmit =async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     
-    const newDeck = await createCard(deckId!, text);
+    const newDeck = await createCard(deckId!, text, token);
     setDeck(newDeck)
     setText('')
   }
   const handleDeleteCard = async (deckId:string, index: number) => {
-    const deck= await deleteCard(deckId, index);
+    const deck= await deleteCard(deckId, index, token);
     setDeck(deck)
     
   }
@@ -33,21 +33,22 @@ export default function Deck() {
         navigate('/login');
       }
       setToken( cookie|| '');
-
-      const deck = await getDeck(deckId!, cookie!);
+     // console.log(deckId, cookie);
+      const deck = await getDeck(deckId!, token!);
+      console.log(deck);
       setDeck(deck);
     }
 
     fetchDeck();
-  }, []);
+  }, [token]);
 
   return (
     <>
       <div className="Deck">
         <ul className="cards">
-          {deck && deck.cards.map((card, i) => {
+          {deck && deck.cards && deck.cards.map((card, i) => {
             return (
-              <li key={deck._id} className="card">
+              <li key={deck._id + i} className="card">
                 <button className="delete" onClick={()=> handleDeleteCard(deck._id, i)}>X</button>
                <p>{card}</p>
               </li>
