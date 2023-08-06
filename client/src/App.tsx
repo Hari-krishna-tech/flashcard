@@ -48,7 +48,7 @@ function App() {
     <>
       <div className="App">
         <ul className="decks">
-          {decks && decks.map((deck, i) => {
+          {decks && decks.map((deck) => {
             return (
               <li key={deck._id} className="deck">
                 <button className="delete" onClick={()=> handleDeleteDeck(deck._id)}>X</button>

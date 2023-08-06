@@ -1,4 +1,4 @@
-import {MouseEventHandler, useState} from 'react';
+import { useState} from 'react';
 import "./Login.css"
 import {login} from './api/login'
 import Cookies from 'js-cookie';

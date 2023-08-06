@@ -1,11 +1,10 @@
-import React, { ReactComponentElement, ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import {
   createBrowserRouter,
   RouterProvider, 
-  Route,
-  LayoutRouteProps,
+
 } from "react-router-dom"
 import Deck from './Deck.tsx'
 import './index.css'
