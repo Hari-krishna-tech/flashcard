@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 
 
 export async function createUserController(req: Request, res: Response) {
+    
     const {email, password} = req.body;
    
     try {
@@ -17,12 +18,13 @@ export async function createUserController(req: Request, res: Response) {
         }
 
         const newUser = new User({email, password});
-
+        console.log("hello");
         await newUser.save();
 
         const token = jwt.sign({email: newUser.email}, process.env.JWT_SECRET || "" , {expiresIn: "7days"});
-        newUser.tokens.push(token);
-        res.json({token, user: newUser});
+       newUser.tokens.push(token);
+        console.log(newUser);
+        res.json({token});
 
 
     } catch (error) {

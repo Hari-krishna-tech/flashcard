@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {MouseEventHandler, useState} from 'react';
 import "./Login.css"
 import {login} from './api/login'
 import Cookies from 'js-cookie';
@@ -8,9 +8,15 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
-  const handleLogin = async () => {
-    console.log("login page")
+  // const handleSignup = (event: MouseEventHandler<HTMLButtonElement>) => {
+    
+  //   navigate('/signup');
+ 
+  // }
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    //console.log("login page")
+    console.log(email, password)
     try {
         const token = await login(email, password);
         console.log("hello world " ,token);
@@ -26,20 +32,27 @@ const Login = () => {
       console.error(error);
       navigate('/login');
     }
+    return null;
   };
 
   return (
-    <div className='login-container'>
-      <h2>Login</h2>
-      <div>
-        <label>Email:</label>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      </div>
-      <div>
-        <label>Password:</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      </div>
-      <button onClick={handleLogin}>Login</button>
+    <div className='signup-containter'>
+      <h2 className='signup-heading'>Login</h2>
+      <form className='signup-form' onSubmit={handleLogin}>
+        <div className='form-group'>
+          <label htmlFor='email' className='form-label'>Email:</label>
+          <input type="email" id='email' className='form-input' value={email} onChange={(e)=>setEmail(e.target.value)} required />
+        </div>
+        <div className='form-group'>
+          <label htmlFor='password' className='form-label'>Password:</label>
+          <input type="password" id="password" className='form-input' value={password} onChange={(e)=>setPassword(e.target.value)} required />
+        </div>
+        <div>
+          <button className='signup-button' type="submit" >Login</button>
+          <button className='signup-button-real' onClick={()=>navigate('/signup')}>Signup</button>
+
+        </div>
+      </form>
     </div>
   );
 

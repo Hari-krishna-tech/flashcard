@@ -17,7 +17,7 @@ function App() {
 
   const handleSubmit =async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    
+    if(title === '') return;
     const newDeck = await createDeck(title, token);
     console.log(newDeck)
     setDecks(newDeck)

@@ -13,12 +13,14 @@ import { getOneDeckController } from "./routes/controllers/getOneDeckController"
 import { deleteCardOnDeckController } from "./routes/controllers/deleteCardOnDeckController";
 import { createUserController } from "./routes/controllers/createUserController";
 import { getUserController } from "./routes/controllers/getUserController";
+import loggerMiddleware from "./middleware/loggerMiddleware";
 
 const app = express();
 const PORT = 5001;
 
 app.use(express.json());
 app.use(cors());
+app.use(loggerMiddleware)
 
 // auth routes 
 app.post("/auth/signup",createUserController);

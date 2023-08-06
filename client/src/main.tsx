@@ -1,33 +1,54 @@
-import React from 'react'
+import React, { ReactComponentElement, ReactNode } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import {
   createBrowserRouter,
   RouterProvider, 
   Route,
+  LayoutRouteProps,
 } from "react-router-dom"
 import Deck from './Deck.tsx'
 import './index.css'
 import Header from './Header.tsx'
 import Login from './Login.tsx'
+import Signup from './Signup.tsx'
+import NotFound from './NotFound.tsx'
+
+interface LayoutProps {
+  children: ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = ({children}) => {
+  return (
+    <div>
+      <Header />
+      {children}
+    </div>
+  );
+};
 
 const BrowserRouter = createBrowserRouter([{
   path: "/",
-  element: <App />,
-  
+  element: <Layout> <App /> </Layout> , 
+},
+{
+  path: "*",
+  element: <Layout> <NotFound /> </Layout> ,
 },
  {
   path: "login",
   element: <Login />
- },
-{
-  path: "/decks/:deckId",
-  element: <Deck />
-}]);
-
+ },{
+  path: "signup",
+  element: <Signup />
+ }, {
+  path:  "decks/:deckId",
+  element: <Layout><Deck/></Layout>
+}
+])
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Header></Header>
+   
     <RouterProvider router={BrowserRouter} / >
   </React.StrictMode>
 );

@@ -16,7 +16,7 @@ export default function Deck() {
  let {deckId} = useParams<{deckId:string}>()
   const handleSubmit =async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    
+    if(text === '') return;
     const newDeck = await createCard(deckId!, text, token);
     setDeck(newDeck)
     setText('')

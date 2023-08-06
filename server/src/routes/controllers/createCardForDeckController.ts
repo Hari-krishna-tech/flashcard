@@ -18,6 +18,10 @@ export async function createCardForDeckController(req: Request, res: Response)  
                 return;
             }
             console.log("user exist");
+            if(req.body.text === undefined) {
+                res.status(400).json({message: "card must have text"});
+                return;
+            }
            const deck = user.decks.find((deck) => {
                 if(deck._id.toString() === deckId) {
                     const card:string = req.body.text;

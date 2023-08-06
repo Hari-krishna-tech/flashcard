@@ -15,6 +15,10 @@ export async function createDeckController(req: Request, res: Response)  {
                 return;
             }
             const deck:IDeck = req.body;
+            if(!deck.title) {
+                res.status(400).json({message: "deck must have a title"});
+                return;
+            }
             user.decks.push(deck);
             await user.save();
             res.json(user.decks);
