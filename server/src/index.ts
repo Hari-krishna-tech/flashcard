@@ -42,3 +42,5 @@ mongoose.connect(process.env.MONGO_URL || "")
 app.listen(PORT);
 
 })
+
+export default app;

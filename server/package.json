@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node ./src/index.ts",
+    "vercel-build": "echo hello",
     "dev": "nodemon --watch \"src/**\" --ext \"ts, js\" --exec \"ts-node ./src/index.ts\""
   },
   "author": "",
